@@ -4,10 +4,18 @@
   "license": "MIT",
   "description": "Webman plugin webman-tech/symfony-rate-limiter",
   "require": {
+    "php": ">=7.2",
+    "symfony/rate-limiter": "^5.4"
+  },
+  "require-dev": {
+    "workerman/webman-framework": "^1.4"
   },
   "autoload": {
     "psr-4": {
       "WebmanTech\\SymfonyRateLimiter\\": "src"
     }
+  },
+  "config": {
+    "sort-packages": true
   }
 }
