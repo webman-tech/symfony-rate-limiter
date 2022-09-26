@@ -1,0 +1,13 @@
+{
+  "name": "webman-tech/symfony-rate-limiter",
+  "type": "library",
+  "license": "MIT",
+  "description": "Webman plugin webman-tech/symfony-rate-limiter",
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "WebmanTech\\SymfonyRateLimiter\\": "src"
+    }
+  }
+}
