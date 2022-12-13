@@ -1,13 +1,13 @@
 <?php
 
+use WebmanTech\SymfonyRateLimiter\Facades\RateLimiter;
+
 return [
-    'requestGlobal' => [
+    RateLimiter::ID_REQUEST => [
         'policy' => 'token_bucket',
-        'limit' => 10,
-        'rate' => ['interval' => '15 minutes'],
-        'storage' => function () {
-            return new \Symfony\Component\RateLimiter\Storage\InMemoryStorage();
-        },
+        'limit' => 1000,
+        'rate' => ['interval' => '1 minutes'],
+        'storage' => null,
         'lockFactory' => null,
     ],
 ];

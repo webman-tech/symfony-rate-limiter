@@ -5,22 +5,27 @@ namespace WebmanTech\SymfonyRateLimiter\Facades;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\RateLimiter\Storage\InMemoryStorage;
 
+/**
+ * @method static RateLimiterFactory request()
+ */
 class RateLimiter
 {
+    public const ID_REQUEST = 'request';
+
     protected static $instances = [];
 
-    public static function instance(string $name): RateLimiterFactory
+    public static function instance(string $id): RateLimiterFactory
     {
-        if (!isset(static::$instances[$name])) {
-            static::$instances[$name] = static::createFactory($name);
+        if (!isset(static::$instances[$id])) {
+            static::$instances[$id] = static::createFactory($id);
         }
 
-        return static::$instances[$name];
+        return static::$instances[$id];
     }
 
-    protected static function createFactory(string $name): RateLimiterFactory
+    protected static function createFactory(string $id): RateLimiterFactory
     {
-        $config = config("plugin.webman-tech.symfony-rate-limiter.rate_limiter.{$name}", []);
+        $config = config("plugin.webman-tech.symfony-rate-limiter.rate_limiter.{$id}", []);
         $storage = $config['storage'] ?? new InMemoryStorage();
         if ($storage instanceof \Closure) {
             $storage = call_user_func($storage);
@@ -30,7 +35,7 @@ class RateLimiter
             $lockFactory = call_user_func($lockFactory);
         }
         return new RateLimiterFactory([
-            'id' => $name,
+            'id' => $id,
             'policy' => $config['policy'] ?? 'token_bucket',
             'limit' => $config['limit'] ?? null,
             'rate' => $config['rate'] ?? null,
